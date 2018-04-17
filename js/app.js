@@ -100,7 +100,7 @@ if(matched.length === 16){endMsg();};
  }
   moves.innerHTML++;
 
-  //stars disappear when move decrease.
+  //stars disappear when moves increase.
 
   if(moves.innerHTML >= 1 && moves.innerHTML <= 10){
     console.log('three stars');
