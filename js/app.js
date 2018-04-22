@@ -2,27 +2,12 @@
  *-----------------------------------------
         **** VARIABLES ****
  *-----------------------------------------
- */ 
+ */
 
+let deckCards = document.getElementsByClassName('card'),
+    cards = [...deckCards]; // hold All cards.
 
- let cards=[
-      "fa-diamond",
-      "fa-paper-plane-o",
-      "fa-anchor",
-      "fa-bolt",
-      "fa-cube",
-      "fa-anchor",
-      "fa-leaf",
-      "fa-bicycle",
-      "fa-diamond",
-      "fa-bomb",
-      "fa-leaf",
-      "fa-bomb",
-      "fa-bolt",
-      "fa-bicycle",
-      "fa-paper-plane-o",
-      "fa-cube"],
-    shuffleCard=[], 
+   // shuffleCard=[], 
     openedCards = [],
     matched=[],
     deck = document.querySelector('.deck'),
@@ -35,6 +20,23 @@
     card = $('.deck li'),
     oneStar = $('.one'),
     twoStars = $('.two');
+
+/*
+*------------------------------------
+*        Start The Game
+*------------------------------------
+*/
+
+function startGame(){
+  let shuffledCards = shuffle(cards);
+  for(let x = 0; x < 16; x++){
+[].forEach.call(shuffledCards,function(i){ 
+  deck.appendChild(i);
+});
+  }
+}
+
+window.onload = startGame();
 /*  
 *--------------------------------------------------------
 *  Time from: https://albert-gonzalez.github.io/easytimer.js/
@@ -69,7 +71,8 @@ timer.addEventListener('secondsUpdated', function (e) {
     check(openedCards);
 
 }
-})
+});
+
 /*
 *
   -----------------------------------------------------------------------
@@ -131,9 +134,9 @@ function rating(num){
 }
 /*
 *
-  -----------------------------------
-    *** Popup Message at the end  ***
-  -----------------------------------
+  -------------------------------------------------------------------------------------------
+    *** Popup Message at the end  from https://sweetalert.js.org/guides/#getting-started  ***
+  -------------------------------------------------------------------------------------------
 *
 */
 
@@ -144,7 +147,7 @@ let msg= rating(moves.innerHTML);
    title: "Good job !  "+msg,
   text: "  ("+ moves.innerText+") moves   in "+minutes.innerText+" Minutes and "+seconds.innerText+"  Seconds",
    icon: "success",
-  button: "restart",
+  button:"restart",
 
   });
 }
@@ -178,23 +181,35 @@ function shuffle(array) {
       ***  start function to reset the cards.  ***
    ----------------------------------------------
 *
-
-function reset(){
-
-  $('.deck').empty();
-  moves.innerHTML=0;
-  timer.reset();
-  shuffleCard = shuffle(cards);
-  for(let i = 0; i < shuffleCard.length; i++){
-    $('.deck').append('<li class="card"><i class="'+ shuffleCard[i] +'"</li>');
-  }
-}
-
-restart= reset();
 */
+function restartGame(){
+
+// Remove all classes
+let c = deck.querySelectorAll('.card');
+for(let i=0;i<16;i++){
+  c[i].classList.remove('open','show','match','disable')
+};
+cards = shuffle(cards);
+ for(let x = 0; x < 16; x++){
+[].forEach.call(cards,function(i){ 
+  deck.appendChild(i);
+});
+  }
+ document.querySelector('.moves').innerHTML= 0;
+ minutes.innerText= 0;
+ seconds.innerText= 0;
+ card.click(function () {
+    timer.start();
+});
+oneStar.css('visibility', ' visible');
+twoStars.css('visibility', ' visible'); 
+
+};
+
+
+
 
 // ---------------------------------------------------------------------------------------------------------
-//restart.addEventListener('click', start);
 
 /*
  * set up the event listener for a card. If a card is clicked:
