@@ -85,90 +85,6 @@ h1 {
   pointer-events: none;
 }
 
-
-
-
-/*  new  
-#play-again {
-    background-color: #141214;
-    padding: 0.7rem 1rem;
-    font-size: 1.1rem;
-    display: block;
-    margin: 0 auto;
-    width: 50%;
-    color: #ffffff;
-    border-radius: 5px;
-  text-align: center;
-}
-
-.deck .card.unmatched {
-  background: #ff404b;
-  animation: wobble 500ms;
-  -webkit-animation: wobble 500ms;
-}
-
-.deck .card.disabled {
-  pointer-events: none;
-  opacity: 0.9;
-}
-
-.winner-text,
-.winner-title {
-  text-align: center;
-}
-
-.popup {
-  position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.7);
-    transition: opacity 500ms;
-    visibility: hidden;
-    opacity: 0;
-}
-
-.popup:target {
-  visibility: visible;
-    opacity: 1;
-}
-
-.game-finish {
-  margin: 70px auto;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 5px;
-    width: 85%;
-    position: relative;
-    transition: all 5s ease-in-out;
-}
-
-.game-finish h2 {
-  font-size: 2rem;
-  margin-bottom: 0;
-}
-
-.game-finish .close {
-  position: absolute;
-    top: 20px;
-    right: 30px;
-    transition: all 200ms;
-    font-size: 30px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #333;
-}
-
-.game-finish .content-1,
-.content-2 {
-  max-height: 30%;
-    overflow: auto;
-    text-align: center;
-}
-
-
-
 /*
  * Styles for the Score Panel
  */
@@ -194,4 +110,29 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+/*
+* ------ Responsiveness --------
+*/
+
+@media only screen and (min-width: 350px) and (max-width: 600px){
+    .deck {
+        width: 750px;
+        height: 1000px;
+    }
+    .deck .card {
+        width: 150px;
+        height: 160px;
+    }
+    .score-panel {
+        font-size: 2em;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    h1 {
+        font-size: 3em;
+        margin-top: 20%;
+        margin-bottom: 10px;
+    }
 }
