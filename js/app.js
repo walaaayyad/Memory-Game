@@ -6,8 +6,7 @@
 
 let deckCards = document.getElementsByClassName('card'),
     cards = [...deckCards]; // hold All cards.
-
-   // shuffleCard=[], 
+ 
     openedCards = [],
     matched=[],
     deck = document.querySelector('.deck'),
@@ -22,28 +21,28 @@ let deckCards = document.getElementsByClassName('card'),
     twoStars = $('.two');
 
 /*
-*------------------------------------
-*        Start The Game
-*------------------------------------
+*---------------------------------------
+*        Function To Start The Game
+*---------------------------------------
 */
 
 function startGame(){
-  let shuffledCards = shuffle(cards);
+  let shuffledCards = shuffle(cards); // Shuffle Cards
   for(let x = 0; x < 16; x++){
 [].forEach.call(shuffledCards,function(i){ 
-  deck.appendChild(i);
+  deck.appendChild(i); // Append Shuffled Cards To The Deck 
 });
   }
 }
 
 window.onload = startGame();
 /*  
-*--------------------------------------------------------
+*--------------------------------------------------------------
 *  Time from: https://albert-gonzalez.github.io/easytimer.js/
-*--------------------------------------------------------
+*--------------------------------------------------------------
 */
 var timer = new Timer();
- card.click(function () {
+ card.click(function () {  // Start Timer When You Start Open Cards
     timer.start();
 });
 
@@ -51,7 +50,7 @@ timer.addEventListener('secondsUpdated', function (e) {
     $('#timer .minutes').html(timer.getTimeValues().minutes);
     $('#timer .seconds').html(timer.getTimeValues().seconds);
     if(matched.length === 16){
-      timer.stop();
+      timer.stop(); // Stop Timer When All Cards Matched
     }
     
 });
@@ -64,11 +63,12 @@ timer.addEventListener('secondsUpdated', function (e) {
 */
   card.on('click',function(){
     this.classList.add('open','show','disable');
-  console.log(this.className);
-  openedCards.push(this);
+  openedCards.push(this); // Push Open Cards To Separate
   console.log(openedCards);
   if(openedCards.length === 2){
+     card.css("pointer-events", "none"); // Disable Clicking on Cards Until Check Them
     check(openedCards);
+     card.css("pointer-events", "auto"); // Now You Can Click On Cards again
 
 }
 });
@@ -99,11 +99,11 @@ if(matched.length === 16){endMsg();};
    openedCards[0].classList.remove('open','show','disable');
    openedCards[1].classList.remove('open','show','disable');
      openedCards = [];
-          }, 500);
+          }, 1000);
  }
   moves.innerHTML++;
 
-  //stars disappear when moves increase.
+  // Stars Will Disappear when your moves increase.
 
   if(moves.innerHTML >= 1 && moves.innerHTML <= 10){
     console.log('three stars');
@@ -137,7 +137,7 @@ function rating(num){
   -------------------------------------------------------------------------------------------
     *** Popup Message at the end  from https://sweetalert.js.org/guides/#getting-started  ***
   -------------------------------------------------------------------------------------------
-*
+* This Alert appear for seconds..It includes yor moves,stars,and your Time 
 */
 
 function endMsg(){
@@ -181,13 +181,15 @@ function shuffle(array) {
 *  ----------------------------------------------
       ***  start function to reset the cards.  ***
    ----------------------------------------------
-*
+* 
 */
 function resetGame(){
   timer.stop();
+//Empty the matched array & opencards array to play again
   matched= [];
   openedCards=[];
    clearInterval(timer);
+
 // Remove all classes
 let c = deck.querySelectorAll('.card');
 for(let i=0;i<16;i++){
@@ -205,32 +207,12 @@ cards = shuffle(cards);
  card.click(function () {
     timer.start();
 });
+// Stars appear again
 oneStar.css('visibility', ' visible');
 twoStars.css('visibility', ' visible'); 
 
 
 startGame();
 };
-
+// When you click on restart the event listener run resetGame function 
   restart.addEventListener('click', resetGame);
-
-
-
-
-// ---------------------------------------------------------------------------------------------------------
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you 
- call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality 
- in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol
-  (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another 
- function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality 
- in another function that you call from this one)
- */
