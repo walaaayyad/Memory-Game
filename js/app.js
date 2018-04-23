@@ -99,7 +99,7 @@ if(matched.length === 16){endMsg();};
    openedCards[0].classList.remove('open','show','disable');
    openedCards[1].classList.remove('open','show','disable');
      openedCards = [];
-          }, 300);
+          }, 500);
  }
   moves.innerHTML++;
 
@@ -147,7 +147,8 @@ let msg= rating(moves.innerHTML);
    title: "Good job !  "+msg,
   text: "  ("+ moves.innerText+") moves   in "+minutes.innerText+" Minutes and "+seconds.innerText+"  Seconds",
    icon: "success",
-  button:"restart",
+  button:false,
+  timer: 4000,
 
   });
 }
@@ -182,8 +183,11 @@ function shuffle(array) {
    ----------------------------------------------
 *
 */
-function restartGame(){
-
+function resetGame(){
+  timer.stop();
+  matched= [];
+  openedCards=[];
+   clearInterval(timer);
 // Remove all classes
 let c = deck.querySelectorAll('.card');
 for(let i=0;i<16;i++){
@@ -204,7 +208,11 @@ cards = shuffle(cards);
 oneStar.css('visibility', ' visible');
 twoStars.css('visibility', ' visible'); 
 
+
+startGame();
 };
+
+  restart.addEventListener('click', resetGame);
 
 
 
