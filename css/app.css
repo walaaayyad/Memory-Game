@@ -132,10 +132,11 @@ h1 {
     .deck {
 
         width: 345px;
-        min-height: 410;
+        min-height: 410px;
+        padding: 20px;
     }
     .deck .card {
-        width: 75px;
+        width: 70px;
         height: 85px;
     }
     .score-panel {
