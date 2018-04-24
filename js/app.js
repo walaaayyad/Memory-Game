@@ -28,21 +28,21 @@ let deckCards = document.getElementsByClassName('card'),
 
 function startGame(){
   let shuffledCards = shuffle(cards); // Shuffle Cards
-  for(let x = 0; x < 16; x++){
-[].forEach.call(shuffledCards,function(i){ 
-  deck.appendChild(i); // Append Shuffled Cards To The Deck 
+    for(let x = 0; x < 16; x++){
+    [].forEach.call(shuffledCards,function(i){ 
+    deck.appendChild(i); // Append Shuffled Cards To The Deck 
 });
   }
 }
 
-window.onload = startGame();
+    window.onload = startGame();
 /*  
 *--------------------------------------------------------------
 *  Time from: https://albert-gonzalez.github.io/easytimer.js/
 *--------------------------------------------------------------
 */
 var timer = new Timer();
- card.click(function () {  // Start Timer When You Start Open Cards
+    card.click(function () {  // Start Timer When You Start Open Cards
     timer.start();
 });
 
@@ -63,13 +63,11 @@ timer.addEventListener('secondsUpdated', function (e) {
 */
   card.on('click',function(){
     this.classList.add('open','show','disable');
-  openedCards.push(this); // Push Open Cards To Separate
-  console.log(openedCards);
+    openedCards.push(this); // Push Open Cards To Separate
+    console.log(openedCards);
   if(openedCards.length === 2){
-     card.css("pointer-events", "none"); // Disable Clicking on Cards Until Check Them
+    
     check(openedCards);
-     card.css("pointer-events", "auto"); // Enable Clicking On Cards after check open cards
-
 }
 });
 
@@ -84,33 +82,42 @@ timer.addEventListener('secondsUpdated', function (e) {
 function check(card){
     if(openedCards[0].firstElementChild.className === openedCards[1].firstElementChild.className){ 
       setTimeout(function() {
-    openedCards[0].classList.add('match');
-    openedCards[1].classList.add('match');
-    matched.push(openedCards[0]);
-    matched.push(openedCards[1]);
-  console.log(matched);
-if(matched.length === 16){endMsg();};
+        openedCards[0].classList.add('match');
+        openedCards[1].classList.add('match');
+        matched.push(openedCards[0]);
+        matched.push(openedCards[1]);
+      console.log(matched);
+    if(matched.length === 16){endMsg();};
 
-    openedCards = [];
+        openedCards = [];
 
-  }, 500);
- }else{
-     setTimeout(function() {
-   openedCards[0].classList.remove('open','show','disable');
-   openedCards[1].classList.remove('open','show','disable');
-     openedCards = [];
-          }, 1000);
+  }, 400);
+   }else{
+
+    $('.deck').css("pointer-events", "none"); // Disable Clicking on Cards Until comparing finish
+
+    setTimeout(function() {
+      openedCards[0].classList.remove('open','show','disable');
+      openedCards[1].classList.remove('open','show','disable');
+   
+    $('.deck').css("pointer-events", "auto"); // Enable Clicking On Cards after check open cards
+
+      openedCards = [];
+          }, 400);
  }
-  moves.innerHTML++;
+      moves.innerHTML++;
+/*
+* ----------------------------------------------------------
+    ***  Stars Will Disappear when your moves increase. ***
+* ----------------------------------------------------------
+*/
 
-  // Stars Will Disappear when your moves increase.
-
-  if(moves.innerHTML >= 1 && moves.innerHTML <= 10){
-    console.log('three stars');
-  }else if(moves.innerHTML > 10 && moves.innerHTML <= 16){
-  oneStar.css('visibility', 'hidden');
+    if(moves.innerHTML >= 1 && moves.innerHTML <= 10){
+      console.log('three stars');
+    }else if(moves.innerHTML > 10 && moves.innerHTML <= 16){
+      oneStar.css('visibility', 'hidden');
     }else{
-  twoStars.css('visibility', 'hidden'); 
+      twoStars.css('visibility', 'hidden'); 
   
     }
 }
@@ -137,18 +144,17 @@ function rating(num){
   -------------------------------------------------------------------------------------------
     *** Popup Message at the end  from https://sweetalert.js.org/guides/#getting-started  ***
   -------------------------------------------------------------------------------------------
-* This Alert appear for seconds..It includes yor moves,stars,and your Time 
+* This Alert appear for seconds..It includes your moves,stars,and Time 
 */
 
 function endMsg(){
 let msg= rating(moves.innerHTML);
-
-   swal({
-   title: "Good job !  "+msg,
-  text: "  ("+ moves.innerText+") moves   in "+minutes.innerText+" Minutes and "+seconds.innerText+"  Seconds",
-   icon: "success",
-  button:false,
-  timer: 4000,
+  swal({
+    title: "Good job !  "+msg,
+    text: "  ("+ moves.innerText+") moves   in "+minutes.innerText+" Minutes and "+seconds.innerText+"  Seconds",
+    icon: "success",
+    button: false,
+    timer: 4000,
 
   });
 }
@@ -201,18 +207,19 @@ cards = shuffle(cards);
   deck.appendChild(i);
 });
   }
+// Reset moves
  document.querySelector('.moves').innerHTML= 0;
  minutes.innerText= 0;
  seconds.innerText= 0;
  card.click(function () {
     timer.start();
 });
-// Stars appear again
+// Show the three Stars
 oneStar.css('visibility', ' visible');
 twoStars.css('visibility', ' visible'); 
 
 
 startGame();
 };
-// When you click on restart the event listener run resetGame function 
+// When you click on ( Play again ) the event listener run resetGame function 
   restart.addEventListener('click', resetGame);
