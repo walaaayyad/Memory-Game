@@ -68,7 +68,7 @@ timer.addEventListener('secondsUpdated', function (e) {
   if(openedCards.length === 2){
      card.css("pointer-events", "none"); // Disable Clicking on Cards Until Check Them
     check(openedCards);
-     card.css("pointer-events", "auto"); // Now You Can Click On Cards again
+     card.css("pointer-events", "auto"); // Enable Clicking On Cards after check open cards
 
 }
 });
